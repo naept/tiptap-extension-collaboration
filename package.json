@@ -1,0 +1,68 @@
+{
+    "name": "tiptap-extension-collaboration",
+    "version": "0.1.0",
+    "description": "Adds collaboration support to tiptap.",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/naept/tiptap-extension-collaboration.git"
+    },
+    "author": {
+        "name": "Julien Aupart",
+        "email": "julien.aupart@naept.com",
+        "url": "https://www.naept.com"
+    },
+    "engines": {
+        "node": ">=10"
+    },
+    "main": "lib/Collaboration.js",
+    "scripts": {
+        "build": "npm run lint && babel ./src -d ./lib",
+        "build-example": "webpack --mode development",
+        "lint": "eslint ./src",
+        "serve-example": "npm run build-example && webpack-dev-server --open",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "files": [
+        "index.js"
+    ],
+    "keywords": [
+        "tiptap",
+        "extension",
+        "collaboration"
+    ],
+    "dependencies": {
+        "prosemirror-collab": "^1.2.2",
+        "prosemirror-transform": "^1.2.8",
+        "socket.io-client": "^2.3.0",
+        "tiptap": "^1.29.6",
+        "tiptap-commands": "^1.14.6"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.11.6",
+        "@babel/core": "^7.11.6",
+        "@babel/preset-env": "^7.11.5",
+        "babel-loader": "^8.1.0",
+        "css-loader": "^4.3.0",
+        "eslint": "^7.8.1",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "html-webpack-plugin": "^4.4.1",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.26.10",
+        "sass-loader": "^8.0.2",
+        "tiptap-extension-collaboration": "file:../tiptap-extension-collaboration",
+        "tiptap-extensions": "^1.32.7",
+        "vue": "^2.6.12",
+        "vue-loader": "^15.9.3",
+        "vue-style-loader": "^4.1.2",
+        "vue-template-compiler": "^2.6.12",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "bugs": {
+        "url": "https://github.com/naept/tiptap-extension-collaboration/issues"
+    },
+    "homepage": "https://github.com/naept/tiptap-extension-collaboration#readme"
+}
