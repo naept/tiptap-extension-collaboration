@@ -15,7 +15,7 @@
     "engines": {
         "node": ">=10"
     },
-    "main": "lib/Collaboration.js",
+    "main": "lib/index.js",
     "scripts": {
         "build": "npm run lint && babel ./src -d ./lib",
         "build-example": "webpack --mode development",
@@ -29,11 +29,13 @@
     "keywords": [
         "tiptap",
         "extension",
-        "collaboration"
+        "collaboration",
+        "cursors"
     ],
     "dependencies": {
         "prosemirror-collab": "^1.2.2",
         "prosemirror-transform": "^1.2.8",
+        "prosemirror-view": "^1.15.7",
         "socket.io-client": "^2.3.0",
         "tiptap": "^1.29.6",
         "tiptap-commands": "^1.14.6"
@@ -48,9 +50,8 @@
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-plugin-import": "^2.22.0",
         "html-webpack-plugin": "^4.4.1",
+        "randomcolor": "^0.6.2",
         "resolve-url-loader": "^3.1.0",
-        "sass": "^1.26.10",
-        "sass-loader": "^8.0.2",
         "tiptap-extension-collaboration": "file:../tiptap-extension-collaboration",
         "tiptap-extensions": "^1.32.7",
         "vue": "^2.6.12",

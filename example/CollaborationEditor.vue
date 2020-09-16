@@ -1,8 +1,8 @@
 <template>
   <div class="editor">
     <template v-if="editor && !loading">
-      <div class="count">
-        &bull; {{ count }} {{ count === 1 ? 'user' : 'users' }} connected to {{ namespace }}/{{ room }}
+      <div class="clientsIDs">
+        &bull; {{ clientsIDs.length }} {{ clientsIDs.length === 1 ? 'user' : 'users' }} connected to {{ namespace }}/{{ room }}
       </div>
       <editor-content class="editor__content" :editor="editor"  />
     </template>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
 import { Editor, EditorContent } from 'tiptap'
 import {
   HardBreak,
@@ -22,9 +21,10 @@ import {
   Code,
   Italic,
   History,
-  // Collaboration,
 } from 'tiptap-extensions'
-import Collaboration from 'tiptap-extension-collaboration'
+import {Cursor, Collaboration} from 'tiptap-extension-collaboration'
+// import {Cursor, Collaboration} from '../src'
+import randomColor from 'randomColor'
 
 export default {
   components: {
@@ -58,34 +58,58 @@ export default {
             socketServerBaseURL: 'http://localhost:6002/',
             namespace: this.namespace,
             room: this.room,
-            // debounce changes so we can save some requests
-            debounce: 250,
+            clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
 
-            onStatusChanged: ({loading}) => {
-              this.loading = loading
+            debounce: 250,
+            keepFocusOnBlur: false,
+
+            onConnected: () => {
+              this.loading = false
             },
-            onConnectedUsersChanged: ({count}) => {
-              this.count = count
+            onClientsUpdate: ({clientsIDs, clientID}) => {
+              this.clientsIDs = clientsIDs
+              this.mapClientsToColors(clientID)
+              this.makeClientColorStyles()
             }
           }),
+          new Cursor()
         ]
       }),
-      // socket: null,
-      count: 0,
+      clientsIDs: [],
+      colorsMap: {}
     }
   },
 
   methods: {
-  },
+    mapClientsToColors(clientID) {
+      this.clientsIDs
+        .filter((id) => id !== clientID)
+        .filter((id) => !Object.keys(this.colorsMap).includes(id))
+        .forEach((id) => {
+          this.colorsMap[id] = randomColor()
+        })
+    },
 
-  mounted() {
+    makeClientColorStyles() {
+      let clientsColorsStyle = document.getElementById('client-colors')
+      if (clientsColorsStyle) clientsColorsStyle.remove()
+      
+      clientsColorsStyle = document.createElement('style')
+      clientsColorsStyle.type = 'text/css'
+      clientsColorsStyle.id = 'client-colors'
+
+      Object.entries(this.colorsMap).forEach(([clientID, color]) => {
+        clientsColorsStyle.innerHTML += `.cursor.client-${clientID}::before { background-color: ${color} }\n`
+        clientsColorsStyle.innerHTML += `.selection.client-${clientID} { background-color: ${color}20 }\n`
+      })
+
+      document.getElementsByTagName('head')[0].appendChild(clientsColorsStyle)
+    },
   },
 
   beforeDestroy() {
-    console.log("destroying editor", this.editor.extensions)
     this.editor.destroy()
-    // this.editor.extensions.extensions.collaboration.closeSocket()
-    this.editor.extensions.extensions.find(e => e.name === "collaboration").closeSocket()
+    this.editor.extensions.extensions.find((e) => e.name === 'collaboration').closeSocket()
   },
 }
 </script>
@@ -99,11 +123,10 @@ html {
   line-height: 1.5;
 }
 
-.count {
+.clientsIDs {
   display: flex;
   align-items: center;
   font-weight: bold;
-  color: rgba(#000000, 0.5);
   color: #27b127;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -118,4 +141,22 @@ html {
 
 }
 
+.cursor {
+  position: relative;
+}
+
+.cursor::before {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 120%;
+  position: absolute;
+  top: -1em;
+  left: -1px;
+  z-index: 1;
+}
+
+.selection {
+  position: relative;
+}
 </style>

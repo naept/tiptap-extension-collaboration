@@ -14,18 +14,28 @@ export default class Collaboration extends Extension {
     return 'collaboration';
   }
 
+  get defaultOptions() {
+    return {
+      socketServerBaseURL: 'http://localhost:6000',
+      namespace: '',
+      room: '',
+      clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
+      debounce: 250,
+      keepFocusOnBlur: false,
+      onConnected: () => {},
+      onClientsUpdate: () => {},
+    };
+  }
+
   init() {
     // Default version
-    console.log('The ONE !');
     this.version = 0;
-    this.initDone = false;
+    this.initDone = false; // Prevent sending update on init setContent
 
     this.getSendableSteps = this.debounce((state) => {
       const sendable = sendableSteps(state);
-      console.log('sendableSteps', state);
 
       if (sendable) {
-        console.log('socket emit update', sendable);
         this.socket.emit('update', {
           version: sendable.version,
           steps: sendable.steps.map((step) => step.toJSON()),
@@ -34,40 +44,54 @@ export default class Collaboration extends Extension {
       }
     }, this.options.debounce);
 
+    this.getSendableSelection = this.debounce((state) => {
+      const selection = (this.options.keepFocusOnBlur || this.editor.focused) ? {
+        from: state.selection.from,
+        to: state.selection.to,
+      } : null;
+
+      this.socket.emit('updateSelection', {
+        clientID: this.options.clientID,
+        selection,
+      });
+    }, this.options.debounce);
+
     this.editor.on('transaction', ({ state }) => {
       if (this.initDone) {
         this.getSendableSteps(state);
+        this.getSendableSelection(state);
       } else {
         this.initDone = true;
       }
     });
 
     this.socket = io(`${this.options.socketServerBaseURL}/${this.options.namespace}`)
-      // get the current document and its version
       .on('init', (data) => {
-        console.log('socket on init', data);
         this.version = data.version;
         this.editor.setContent(data.doc);
         this.editor.registerPlugin(collab({
           version: this.version,
           clientID: this.options.clientID,
         }));
-        // console.log('state after registerPlugin', this.editor.state)
-        this.options.onStatusChanged({ loading: false });
+        this.options.onConnected();
       })
-      // send all updates to the collaboration extension
       .on('update', (data) => {
-        console.log('socket on update', data);
         this.update(data);
       })
-      // get count of connected users
-      .on('getCount', (count) => {
-        console.log('on getCount', count);
-        this.options.onConnectedUsersChanged({ count });
+      .on('getSelections', (data) => {
+        this.updateSelections(data);
+      })
+      .on('getClients', (clientsIDs) => {
+        this.options.onClientsUpdate({
+          clientsIDs,
+          clientID: this.options.clientID,
+        });
       });
 
-    console.log('socket emit join', `${this.options.socketServerBaseURL}${this.options.namespace}`);
-    this.socket.emit('join', this.options.room);
+    this.socket.emit('join', {
+      room: this.options.room,
+      clientID: this.options.clientID,
+    });
   }
 
   update({ steps, version }) {
@@ -84,26 +108,18 @@ export default class Collaboration extends Extension {
     ));
   }
 
-  closeSocket() {
-    console.log('closeSocket');
-    this.socket.close();
+  updateSelections(cursors) {
+    const cursorExtension = this.editor.extensions.extensions.find((e) => e.name === 'cursors');
+    if (cursorExtension) cursorExtension.update(cursors);
   }
 
-  get defaultOptions() {
-    return {
-      socketServerBaseURL: 'http://localhost:6000',
-      namespace: '',
-      room: '',
-      clientID: Math.floor(Math.random() * 0xFFFFFFFF),
-      debounce: 250,
-      onStatusChanged: () => {},
-      onConnectedUsersChanged: () => {},
-    };
+  closeSocket() {
+    this.socket.close();
   }
 
   debounce(fn, delay) {
     let timeout;
-    return function (...args) {
+    return (...args) => {
       if (timeout) {
         clearTimeout(timeout);
       }

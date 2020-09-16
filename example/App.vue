@@ -1,16 +1,15 @@
 <template>
   <div>
     <CollaborationEditor
-      v-for="conf in editorsConf"
-      :namespace="conf.namespace"
-      :room="conf.room">
+      v-if="connect"
+      :namespace="namespace"
+      :room="room">
     </CollaborationEditor>
-    <!-- <CollaborationEditor namespace="namespace1/project1" room="doc1"></CollaborationEditor> -->
-    <!-- <editor projectPath="namespace1/project1" docName="doc6" class="col-6"></editor>
-    <editor projectPath="namespace2/project3" docName="doc1" class="col-6"></editor> -->
-    <input v-model="newNamespace">
-    <input v-model="newRoom">
-    <button @click="addEditor">Join Editor</button>
+    <div v-else>
+      <input v-model="namespace">
+      <input v-model="room">
+      <button @click="connectEditor">Join Editor</button>
+    </div>
   </div>
 </template>
 
@@ -24,21 +23,15 @@ export default {
   data() {
     return {
       editorsConf: [],
-      newNamespace: "namespace1/project1",
-      newRoom: "doc1",
+      namespace: "namespace1/project1",
+      room: "doc1",
+      connect: false,
     }
   },
 
   methods: {
-    addEditor() {
-      console.log('addEditor')
-      this.editorsConf = [
-        ...this.editorsConf,
-        {
-          namespace: this.newNamespace,
-          room: this.newRoom,
-        }
-      ]
+    connectEditor() {
+      this.connect = true
     }
   }
 }
