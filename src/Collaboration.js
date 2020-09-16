@@ -20,9 +20,11 @@ export default class Collaboration extends Extension {
       namespace: '',
       room: '',
       clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
+      joinOptions: {},
       debounce: 250,
       keepFocusOnBlur: false,
       onConnected: () => {},
+      onConnectionRefused: () => {},
       onClientsUpdate: () => {},
     };
   }
@@ -75,6 +77,9 @@ export default class Collaboration extends Extension {
         }));
         this.options.onConnected();
       })
+      .on('initFailed', (error) => {
+        this.options.onConnectionRefused(error);
+      })
       .on('update', (data) => {
         this.update(data);
       })
@@ -91,6 +96,7 @@ export default class Collaboration extends Extension {
     this.socket.emit('join', {
       room: this.options.room,
       clientID: this.options.clientID,
+      options: this.options.joinOptions,
     });
   }
 

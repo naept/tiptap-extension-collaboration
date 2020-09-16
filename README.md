@@ -23,19 +23,20 @@ new Editor({
   extensions: [
     new Cursors(),
     new Collaboration({
-      socketServerBaseURL: 'http://localhost:6000/',
+      socketServerBaseURL: 'http://localhost:6000',
       namespace: 'Directory-A',
       room: 'Document-1',
 
-      clientID: Math.floor(Math.random() * 0xFFFFFFFF),
+      clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
+      joinOptions: {}
       
       debounce: 250,
       keepFocusOnBlur: false,
 
       onConnected: () => {
       },
-      onClientsUpdate: ({count}) => {
-      }
+      onConnectedFailed: (error) => {},
+      onClientsUpdate: ({clientsIDs, clientID}) => {}
     }),
   ],
 })
@@ -46,6 +47,10 @@ Use of Cursors extension is optional
 Contributions are welcome
 
 ## Contributing
+Installs dependencies
+```
+npm install
+```
 Builds library for publication
 ```
 npm run build

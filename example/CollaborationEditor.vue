@@ -55,7 +55,7 @@ export default {
           new Italic(),
           new History(),
           new Collaboration({
-            socketServerBaseURL: 'http://localhost:6002/',
+            socketServerBaseURL: 'http://localhost:6002',
             namespace: this.namespace,
             room: this.room,
             clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
