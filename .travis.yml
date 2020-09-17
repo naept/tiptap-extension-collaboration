@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- stable
+install:
+- npm install
+before_deploy:
+- npm run build
+deploy:
+  provider: npm
+  email: julien.aupart@gmail.com
+  api_key:
+    secure: MXkLMRWjaaatUxz+DNCAd7XIELsz4lUpLDj/jRXWH9PrHPCfjJJh6I0EYcmDM1cG9VV6XvFQ+zuSZKuaY4q8lBOtYS1pDNUY5P6UTdNi3ECnjpabORhxg8231BeiKIG6FqA1bx+An6rAI2yaKzkk3EL35a47VG/YgZumBKGfmez0VcVVvN6+6MD59R3z4mnwgsUZb4tToI73WSygrOPyMRZF69baCggC5CtRfAS2VpfI5Qz5J/7K/4p/v1bFi3luRoNYz4mrb/tOFqpPsGsiG/kUFAOq6Sv+2ZdlZUkTqiA3CBKkgbEdvdX4Yjfqg4oTIheq90F8ecZ+5O5ZzbuOGUsQmvgVCiCraSgwhFDu5sOsUMpHt61RlW/2+PLMI+CXX/ULu34/Ob5nAGIZ5EBmsterSi2ogacke28zh9M6Q1+r4+jBX09WG0I7RzBeWI9cTR8Z6bizi7Xf2VUtQ+GTcgXft1JfN5DfQPEzW82Dizr/cIGJ6PfeRicybQhXjJeYASTXnvKM8J259UEvnNva1Q0wO7M6tXH2ECyVoPt8/zsMOK/0IY0wlcfZ/587RNmHjrxM/nbefBZ0VSz8UVa/xlo2sR9Fa/UVdkxiEYZUySz8cGePsc4F/veWVQBts5zBMisT7wZMVRxgjwvdvrzG4h05zlV0VtBmVlwa3aktOCQ=
+  on:
+    tags: true
+    repo: naept/tiptap-extension-collaboration
+  skip_cleanup: 'true'

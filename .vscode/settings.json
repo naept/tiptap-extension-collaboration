@@ -1,7 +1,0 @@
-{
-    "eslint.autoFixOnSave": true,
-    "cSpell.words": [
-        "prosemirror",
-        "tiptap"
-    ]
-}
