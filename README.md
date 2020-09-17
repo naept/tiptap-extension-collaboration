@@ -6,8 +6,8 @@ A library for collaborative editing with [tiptap](https://github.com/ueberdosis/
 
 ## Enhancements over tiptap's example
 This library is based on the example provided by tiptap.
-*  Cursors and selections handling have been added.
-*  The socket server connection is handled inside the library.
+  * Cursors and selections handling have been added.
+  *  The socket server connection is handled inside the library.
 
 ### Socket server
 For this library to work, you need to use a socket server run with this library :
@@ -15,7 +15,7 @@ For this library to work, you need to use a socket server run with this library 
 
 ## Installation
 ```sh
-$ npm install tiptap-extension-collaboration
+npm install tiptap-extension-collaboration
 ```
 
 ## Basic Setup
@@ -52,15 +52,15 @@ Contributions are welcome
 ## Contributing
 Installs dependencies
 ```sh
-$ npm install
+npm install
 ```
 
 Builds library for publication
 ```sh
-$ npm run build
+npm run build
 ```
 
 Compiles and hot-reloads example app for development
 ```sh
-$ npm run serve-example
+npm run serve-example
 ```
