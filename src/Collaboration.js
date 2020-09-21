@@ -26,6 +26,9 @@ export default class Collaboration extends Extension {
       onConnected: () => {},
       onConnectionRefused: () => {},
       onClientsUpdate: () => {},
+      onSaving: () => {},
+      onSaveFailed: () => {},
+      onSaved: () => {},
     };
   }
 
@@ -38,6 +41,8 @@ export default class Collaboration extends Extension {
       const sendable = sendableSteps(state);
 
       if (sendable) {
+        this.version = sendable.version;
+        this.options.onSaving();
         this.socket.emit('update', {
           version: sendable.version,
           steps: sendable.steps.map((step) => step.toJSON()),
@@ -82,6 +87,11 @@ export default class Collaboration extends Extension {
       })
       .on('update', (data) => {
         this.update(data);
+        if (data.version !== this.version) {
+          this.options.onSaved();
+        } else {
+          this.options.onSaveFailed('Version mismatch');
+        }
       })
       .on('getSelections', (data) => {
         this.updateSelections(data);

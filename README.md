@@ -39,7 +39,9 @@ new Editor({
       onConnected: () => {
       },
       onConnectedFailed: (error) => {},
-      onClientsUpdate: ({clientsIDs, clientID}) => {}
+      onClientsUpdate: ({clientsIDs, clientID}) => {},
+      onSaving: () => {},
+      onSaved: () => {},
     }),
   ],
 })

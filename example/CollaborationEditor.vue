@@ -5,6 +5,7 @@
         &bull; {{ clientsIDs.length }} {{ clientsIDs.length === 1 ? 'user' : 'users' }} connected to {{ namespace }}/{{ room }}
       </div>
       <editor-content class="editor__content" :editor="editor"  />
+      <div class="savingStatus">{{ saving ? 'Saving...' : 'Saved' }}</div>
     </template>
     <em v-else>
       Connecting to socket server …
@@ -70,11 +71,20 @@ export default {
               this.clientsIDs = clientsIDs
               this.mapClientsToColors(clientID)
               this.makeClientColorStyles()
-            }
+            },
+            onSaving: () => {
+              this.saving = true
+            },
+            onSaved: () => {
+              setTimeout(() => {
+                this.saving = false
+              }, 500)
+            },
           }),
           new Cursor()
         ]
       }),
+      saving: false,
       clientsIDs: [],
       colorsMap: {}
     }
@@ -132,6 +142,17 @@ html {
   text-transform: uppercase;
   font-size: 0.7rem;
   line-height: 1;
+}
+
+.savingStatus {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: #27b127;
+  margin-bottom: 1rem;
+  font-size: 0.6rem;
+  line-height: 1;
+  font-style: italic;
 }
 
 .editor {
