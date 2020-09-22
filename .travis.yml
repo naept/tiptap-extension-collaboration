@@ -5,8 +5,6 @@ install:
 - npm install
 before_deploy:
 - npm run build
-script:
-- npm run test
 deploy:
   provider: npm
   email: julien.aupart@gmail.com
