@@ -31,13 +31,12 @@ new Editor({
       room: 'Document-1',
 
       clientID: String(Math.floor(Math.random() * 0xFFFFFFFF)),
-      joinOptions: {}
-      
+      joinOptions: {},
+
       debounce: 250,
       keepFocusOnBlur: false,
 
-      onConnected: () => {
-      },
+      onConnected: () => {},
       onConnectedFailed: (error) => {},
       onClientsUpdate: ({clientsIDs, clientID}) => {},
       onSaving: () => {},
