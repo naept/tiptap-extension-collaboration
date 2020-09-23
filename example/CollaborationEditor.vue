@@ -25,7 +25,7 @@ import {
 } from 'tiptap-extensions'
 import {Cursors, Collaboration} from 'tiptap-extension-collaboration'
 // import {Cursor, Collaboration} from '../src'
-import randomColor from 'randomColor'
+import randomColor from 'randomcolor'
 
 export default {
   components: {

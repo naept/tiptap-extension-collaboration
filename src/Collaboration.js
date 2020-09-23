@@ -35,7 +35,7 @@ export default class Collaboration extends Extension {
   init() {
     // Default version
     this.version = 0;
-    this.initDone = false; // Prevent sending update on init setContent
+    this.initDone = false;
 
     this.getSendableSteps = this.debounce((state) => {
       const sendable = sendableSteps(state);
@@ -67,8 +67,6 @@ export default class Collaboration extends Extension {
       if (this.initDone) {
         this.getSendableSteps(state);
         this.getSendableSelection(state);
-      } else {
-        this.initDone = true;
       }
     });
 
@@ -80,6 +78,7 @@ export default class Collaboration extends Extension {
           version: this.version,
           clientID: this.options.clientID,
         }));
+        this.initDone = true;
         this.options.onConnected();
       })
       .on('initFailed', (error) => {
