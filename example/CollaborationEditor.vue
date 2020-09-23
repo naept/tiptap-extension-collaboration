@@ -23,7 +23,7 @@ import {
   Italic,
   History,
 } from 'tiptap-extensions'
-import {Cursor, Collaboration} from 'tiptap-extension-collaboration'
+import {Cursors, Collaboration} from 'tiptap-extension-collaboration'
 // import {Cursor, Collaboration} from '../src'
 import randomColor from 'randomColor'
 
@@ -81,7 +81,7 @@ export default {
               }, 500)
             },
           }),
-          new Cursor()
+          new Cursors()
         ]
       }),
       saving: false,
