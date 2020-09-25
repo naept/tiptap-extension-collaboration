@@ -24,7 +24,7 @@ import {
   History,
 } from 'tiptap-extensions'
 import {Cursors, Collaboration} from 'tiptap-extension-collaboration'
-// import {Cursor, Collaboration} from '../src'
+// import {Cursors, Collaboration} from '../src'
 import randomColor from 'randomcolor'
 
 export default {
@@ -71,6 +71,9 @@ export default {
               this.clientsIDs = clientsIDs
               this.mapClientsToColors(clientID)
               this.makeClientColorStyles()
+            },
+            onDisconnected: () => {
+              this.loading = true
             },
             onSaving: () => {
               this.saving = true

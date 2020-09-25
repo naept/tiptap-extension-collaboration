@@ -38,6 +38,7 @@ new Editor({
 
       onConnected: () => {},
       onConnectedFailed: (error) => {},
+      onDisconnected: () => {},
       onClientsUpdate: ({clientsIDs, clientID}) => {},
       onSaving: () => {},
       onSaved: () => {},

@@ -25,6 +25,7 @@ export default class Collaboration extends Extension {
       keepFocusOnBlur: false,
       onConnected: () => {},
       onConnectionRefused: () => {},
+      onDisconnected: () => {},
       onClientsUpdate: () => {},
       onSaving: () => {},
       onSaveFailed: () => {},
@@ -71,6 +72,16 @@ export default class Collaboration extends Extension {
     });
 
     this.socket = io(`${this.options.socketServerBaseURL}/${this.options.namespace}`)
+      .on('connect', () => {
+        this.initDone = false;
+        this.editor.unregisterPlugin('collab');
+
+        this.socket.emit('join', {
+          room: this.options.room,
+          clientID: this.options.clientID,
+          options: this.options.joinOptions,
+        });
+      })
       .on('init', (data) => {
         this.version = data.version;
         this.editor.setContent(data.doc);
@@ -100,13 +111,10 @@ export default class Collaboration extends Extension {
           clientsIDs,
           clientID: this.options.clientID,
         });
+      })
+      .on('disconnect', () => {
+        this.options.onDisconnected();
       });
-
-    this.socket.emit('join', {
-      room: this.options.room,
-      clientID: this.options.clientID,
-      options: this.options.joinOptions,
-    });
   }
 
   update({ steps, version }) {
