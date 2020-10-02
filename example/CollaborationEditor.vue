@@ -167,6 +167,8 @@ html {
 
 .cursor {
   position: relative;
+  display: inline-block;
+  height: 1.2em
 }
 
 .cursor::before {
@@ -175,7 +177,7 @@ html {
   width: 2px;
   height: 120%;
   position: absolute;
-  top: -1em;
+  top: 0.15em;
   left: -1px;
   z-index: 1;
 }
