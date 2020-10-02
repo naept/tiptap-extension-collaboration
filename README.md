@@ -1,8 +1,13 @@
 # Tiptap Extension: Collaboration
 A library for collaborative editing with [tiptap](https://github.com/ueberdosis/tiptap).
 
-[![Build Status](https://travis-ci.org/naept/tiptap-extension-collaboration.svg?branch=master)](https://travis-ci.org/naept/tiptap-extension-collaboration)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/74a417aa23794c3c82c22acf2fb3965b)](https://www.codacy.com/gh/naept/tiptap-extension-collaboration?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=naept/tiptap-extension-collaboration&amp;utm_campaign=Badge_Grade)
+[![Build Status][travis-image]][travis-url]
+[![Codacy Badge][codacy-image]][codacy-url]
+
+[travis-image]: https://travis-ci.org/naept/tiptap-extension-collaboration.svg?branch=master
+[travis-url]: https://travis-ci.org/naept/tiptap-extension-collaboration
+[codacy-image]:https://app.codacy.com/project/badge/Grade/74a417aa23794c3c82c22acf2fb3965b
+[codacy-url]:https://www.codacy.com/gh/naept/tiptap-extension-collaboration?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=naept/tiptap-extension-collaboration&amp;utm_campaign=Badge_Grade
 
 ## Enhancements over tiptap's example
 This library is based on the example provided by tiptap.
@@ -26,7 +31,7 @@ new Editor({
   extensions: [
     new Cursors(),
     new Collaboration({
-      socketServerBaseURL: 'http://localhost:6000',
+      socketServerBaseURL: 'http://localhost:6002',
       namespace: 'Directory-A',
       room: 'Document-1',
 

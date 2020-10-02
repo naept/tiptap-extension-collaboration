@@ -47,7 +47,6 @@ export default class Collaboration extends Extension {
         this.socket.emit('update', {
           version: sendable.version,
           steps: sendable.steps.map((step) => step.toJSON()),
-          clientID: sendable.clientID,
         });
       }
     }, this.options.debounce);
@@ -59,7 +58,6 @@ export default class Collaboration extends Extension {
       } : null;
 
       this.socket.emit('updateSelection', {
-        clientID: this.options.clientID,
         selection,
       });
     }, this.options.debounce);
@@ -70,14 +68,12 @@ export default class Collaboration extends Extension {
         this.getSendableSelection(state);
       }
     });
-
     this.socket = io(`${this.options.socketServerBaseURL}/${this.options.namespace}`)
       .on('connect', () => {
         this.initDone = false;
         this.editor.unregisterPlugin('collab');
-
         this.socket.emit('join', {
-          room: this.options.room,
+          roomName: this.options.room,
           clientID: this.options.clientID,
           options: this.options.joinOptions,
         });
