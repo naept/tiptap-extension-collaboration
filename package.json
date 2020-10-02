@@ -1,6 +1,6 @@
 {
     "name": "tiptap-extension-collaboration",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Adds collaboration support to tiptap.",
     "license": "MIT",
     "repository": {
