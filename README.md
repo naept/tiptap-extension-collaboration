@@ -4,15 +4,10 @@ A library for collaborative editing with [tiptap](https://github.com/ueberdosis/
 [![Build Status][travis-image]][travis-url]
 [![Codacy Badge][codacy-image]][codacy-url]
 
-[travis-image]: https://travis-ci.org/naept/tiptap-extension-collaboration.svg?branch=master
-[travis-url]: https://travis-ci.org/naept/tiptap-extension-collaboration
-[codacy-image]:https://app.codacy.com/project/badge/Grade/74a417aa23794c3c82c22acf2fb3965b
-[codacy-url]:https://www.codacy.com/gh/naept/tiptap-extension-collaboration?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=naept/tiptap-extension-collaboration&amp;utm_campaign=Badge_Grade
-
 ## Enhancements over tiptap's example
 This library is based on the example provided by tiptap.
-  * Cursors and selections handling have been added.
-  *  The socket server connection is handled inside the library.
+* Cursors and selections handling have been added.
+* The socket server connection is handled inside the library.
 
 ### Socket server
 For this library to work, you need to use a socket server run with this library :
@@ -71,3 +66,8 @@ Compiles and hot-reloads example app for development
 ```sh
 npm run serve-example
 ```
+
+[travis-image]: https://travis-ci.org/naept/tiptap-extension-collaboration.svg?branch=master
+[travis-url]: https://travis-ci.org/naept/tiptap-extension-collaboration
+[codacy-image]:https://app.codacy.com/project/badge/Grade/74a417aa23794c3c82c22acf2fb3965b
+[codacy-url]:https://www.codacy.com/gh/naept/tiptap-extension-collaboration?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=naept/tiptap-extension-collaboration&amp;utm_campaign=Badge_Grade
