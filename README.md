@@ -1,8 +1,10 @@
 # Tiptap Extension: Collaboration
 A library for collaborative editing with [tiptap](https://github.com/ueberdosis/tiptap).
 
+[![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Codacy Badge][codacy-image]][codacy-url]
+[![Dev dependencies][david-dm-image]][david-dm-url]
 
 ## Enhancements over tiptap's example
 This library is based on the example provided by tiptap.
@@ -67,7 +69,11 @@ Compiles and hot-reloads example app for development
 npm run serve-example
 ```
 
+[npm-image]: https://img.shields.io/npm/v/tiptap-extension-collaboration.svg
+[npm-url]: https://npmjs.org/package/tiptap-extension-collaboration
 [travis-image]: https://travis-ci.org/naept/tiptap-extension-collaboration.svg?branch=master
 [travis-url]: https://travis-ci.org/naept/tiptap-extension-collaboration
 [codacy-image]:https://app.codacy.com/project/badge/Grade/74a417aa23794c3c82c22acf2fb3965b
 [codacy-url]:https://www.codacy.com/gh/naept/tiptap-extension-collaboration?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=naept/tiptap-extension-collaboration&amp;utm_campaign=Badge_Grade
+[david-dm-image]:https://david-dm.org/naept/tiptap-extension-collaboration.svg
+[david-dm-url]:https://david-dm.org/naept/tiptap-extension-collaboration
