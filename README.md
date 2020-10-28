@@ -6,6 +6,8 @@ A library for collaborative editing with [tiptap](https://github.com/ueberdosis/
 [![Codacy Badge][codacy-image]][codacy-url]
 [![Dev dependencies][david-dm-image]][david-dm-url]
 
+A full tutorial for setting this up is available in [this article on Naept's blog](https://www.naept.com/en/blog/easy-collaborative-editor-with-tiptap-and-prosemirror/) or on [Medium](https://medium.com/@julien.aupart/easy-collaborative-editor-with-tiptap-and-prosemirror-baa3314636c6)
+
 ## Enhancements over tiptap's example
 This library is based on the example provided by tiptap.
 * Cursors and selections handling have been added.
